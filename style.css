@@ -201,6 +201,18 @@ nav {
   text-decoration: none;
   transition: all .3s;
   clip-path: polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  top: 0; left: -150%;
+  width: 50%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transform: skewX(-20deg);
+  transition: all .6s ease;
 }
 
 .btn-primary:hover {
@@ -208,6 +220,10 @@ nav {
   color: var(--text-dark);
   transform: translateY(-2px);
   box-shadow: 0 8px 30px rgba(200,151,42,.4);
+}
+
+.btn-primary:hover::before {
+  left: 150%;
 }
 
 .btn-outline {
@@ -304,9 +320,17 @@ section {
 
 .about-card {
   background: linear-gradient(135deg, rgba(139,0,0,.25), rgba(200,151,42,.08));
+  backdrop-filter: blur(12px);
   border: 1px solid rgba(200,151,42,.2);
   padding: 40px;
   position: relative;
+  transition: transform .3s, box-shadow .3s, border-color .3s;
+}
+
+.about-card:hover {
+  transform: translateY(-4px) scale(1.01);
+  box-shadow: 0 16px 50px rgba(200,151,42,.15);
+  border-color: rgba(200,151,42,.5);
 }
 
 .about-card::before {
@@ -356,10 +380,11 @@ section {
 
 .timing-card {
   background: linear-gradient(145deg, rgba(92,0,0,.4), rgba(26,8,0,.6));
+  backdrop-filter: blur(12px);
   border: 1px solid rgba(200,151,42,.2);
   border-top: 3px solid var(--crimson);
   padding: 32px 28px;
-  transition: transform .3s, box-shadow .3s;
+  transition: transform .4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow .4s ease, border-color .4s ease;
   position: relative;
   overflow: hidden;
 }
@@ -374,7 +399,12 @@ section {
   transition: opacity .3s;
 }
 
-.timing-card:hover { transform: translateY(-4px); box-shadow: 0 16px 50px rgba(139,0,0,.3); }
+.timing-card:hover { 
+  transform: translateY(-8px) scale(1.02); 
+  box-shadow: 0 20px 50px rgba(200,151,42,.25);
+  border-color: rgba(200,151,42,.5);
+  border-top-color: var(--gold-lt);
+}
 .timing-card:hover::after { opacity: 1; }
 
 .timing-icon { 
@@ -560,8 +590,10 @@ section {
 
 .donate-form {
   background: linear-gradient(145deg, rgba(92,0,0,.2), rgba(26,8,0,.5));
-  border: 1px solid rgba(200,151,42,.2);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(200,151,42,.3);
   padding: 48px 40px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.5);
 }
 
 .form-group { margin-bottom: 24px; }
@@ -775,3 +807,20 @@ footer {
 }
 
 #notification.show { display: block; animation: fadeUp .4s ease; }
+
+/* ── PETAL ANIMATION ── */
+.petal {
+  position: absolute;
+  top: -20px;
+  background: radial-gradient(circle, var(--gold-lt) 0%, var(--gold) 60%, transparent 100%);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 1;
+  animation: fall linear forwards;
+  filter: drop-shadow(0 0 4px var(--gold));
+}
+
+@keyframes fall {
+  0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+}

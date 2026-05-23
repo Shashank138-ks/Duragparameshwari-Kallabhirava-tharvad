@@ -80,3 +80,29 @@ document.querySelectorAll('.timing-card, .festival-item, .gallery-item, .about-c
   el.style.transition = 'opacity .6s ease, transform .6s ease';
   observer.observe(el);
 });
+
+// Divine Falling Petals / Sparks Effect
+function createPetal() {
+  const hero = document.getElementById('hero');
+  if (!hero) return;
+  const petal = document.createElement('div');
+  petal.classList.add('petal');
+  
+  // Random position, size, and animation duration
+  petal.style.left = Math.random() * 100 + 'vw';
+  petal.style.animationDuration = Math.random() * 3 + 4 + 's'; // 4-7 seconds
+  petal.style.opacity = Math.random();
+  const size = Math.random() * 8 + 4;
+  petal.style.width = size + 'px';
+  petal.style.height = size + 'px';
+  
+  hero.appendChild(petal);
+  
+  // Remove petal after animation
+  setTimeout(() => {
+    petal.remove();
+  }, 7000);
+}
+
+// Create petals periodically
+setInterval(createPetal, 400);
